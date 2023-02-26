@@ -7,11 +7,23 @@ import com.example.demo.Repositories.OudersRep;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
+
 @Configuration
-public class Config {
+public class Config implements WebMvcConfigurer {
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://217.160.202.115")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("*");
+    }
 
     @Bean
     CommandLineRunner commandLineRunner(GrootoudersRep grootoudersRep, OudersRep oudersRep) {
@@ -38,5 +50,7 @@ public class Config {
 
         };
     }
+
+
 
 }
